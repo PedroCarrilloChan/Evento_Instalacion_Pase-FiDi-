@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SECRET_KEY = 'sXLBqNbbZYEtByFI	';
+const SECRET_KEY = 'SaMMFvMXnTwguYqK';
 
 app.use(bodyParser.json());
 
@@ -45,7 +45,7 @@ app.post('/webhook', async (req, res) => {
     const userResponse = await axios.get(`https://app.chatgptbuilder.io/api/users/find_by_custom_field?field_id=480449&value=${passSerialNumber}`, {
       headers: {
         'accept': 'application/json',
-        'X-ACCESS-TOKEN': '1296809.UHBxKeL0NfFj9sB9BfQUBKZZ2sCl8k'
+        'X-ACCESS-TOKEN': '1872077.CwMkMqynAn4DL78vhHIBgcyzrcpYCA08Y8WnAYZ2pccBlo'
       }
     });
 
@@ -59,7 +59,7 @@ app.post('/webhook', async (req, res) => {
     const messageResponse = await axios.post(`https://app.chatgptbuilder.io/api/users/${userId}/send/1709878531050`, {}, {
       headers: {
         'accept': 'application/json',
-        'X-ACCESS-TOKEN': '1296809.UHBxKeL0NfFj9sB9BfQUBKZZ2sCl8k'
+        'X-ACCESS-TOKEN': '1872077.CwMkMqynAn4DL78vhHIBgcyzrcpYCA08Y8WnAYZ2pccBlo'
       }
     });
 

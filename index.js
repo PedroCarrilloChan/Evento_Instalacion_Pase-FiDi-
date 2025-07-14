@@ -1,11 +1,19 @@
+require('dotenv').config(); 
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const axios = require('axios');
 
 const app = express();
+
+// --- CONFIGURACIÓN DEL PROYECTO ---
 const PORT = process.env.PORT || 3000;
-const SECRET_KEY = 'SaMMFvMXnTwguYqK';
+const SECRET_KEY = process.env.SMARTPASSES_SECRET_KEY
+const API_TOKEN = process.env.CHATGPT_BUILDER_TOKEN;
+const CUSTOM_FIELD_ID = process.env.CUSTOM_FIELD_ID;
+const MESSAGE_ID = process.env.MESSAGE_ID;
+// ------------------------------------
 
 app.use(bodyParser.json());
 
@@ -42,10 +50,10 @@ app.post('/webhook', async (req, res) => {
   }
 
   try {
-    const userResponse = await axios.get(`https://app.chatgptbuilder.io/api/users/find_by_custom_field?field_id=480449&value=${passSerialNumber}`, {
+    const userResponse = await axios.get(`https://app.chatgptbuilder.io/api/users/find_by_custom_field?field_id=${CUSTOM_FIELD_ID}&value=${passSerialNumber}`, {
       headers: {
         'accept': 'application/json',
-        'X-ACCESS-TOKEN': '1872077.CwMkMqynAn4DL78vhHIBgcyzrcpYCA08Y8WnAYZ2pccBlo'
+        'X-ACCESS-TOKEN': API_TOKEN
       }
     });
 
@@ -56,10 +64,10 @@ app.post('/webhook', async (req, res) => {
 
     const userId = userResponse.data.data[0].id;
 
-    const messageResponse = await axios.post(`https://app.chatgptbuilder.io/api/users/${userId}/send/1709878531050`, {}, {
+    const messageResponse = await axios.post(`https://app.chatgptbuilder.io/api/users/${userId}/send/${MESSAGE_ID}`, {}, {
       headers: {
         'accept': 'application/json',
-        'X-ACCESS-TOKEN': '1872077.CwMkMqynAn4DL78vhHIBgcyzrcpYCA08Y8WnAYZ2pccBlo'
+        'X-ACCESS-TOKEN': API_TOKEN
       }
     });
 
